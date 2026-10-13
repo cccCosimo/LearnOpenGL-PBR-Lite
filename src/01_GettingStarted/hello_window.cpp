@@ -3,6 +3,8 @@
 #include <iostream>
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 int main()
 {
@@ -14,7 +16,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // create a window object
-    GLFWwindow *window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL); // window is a pointer to a GLFWwindow object
+    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL); // window is a pointer to a GLFWwindow object
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -36,7 +38,7 @@ int main()
     // adjust the viewport when a user resizes the window
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    // rendering loop
+    // render loop
     while (!glfwWindowShouldClose(window))
     {
         // check key input
