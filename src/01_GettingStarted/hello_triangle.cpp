@@ -48,8 +48,6 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    // set the size of the rendering window after glad is initialized
-    glViewport(0, 0, 800, 600);
 
     // build and compile shader program
     // Vertex shader
