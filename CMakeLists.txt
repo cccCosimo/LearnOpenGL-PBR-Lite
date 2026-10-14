@@ -20,8 +20,8 @@ add_library(glad STATIC src/glad.c)
 target_include_directories(glad PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/includes")
 
 # Each source file has its own main(), so build separate programs.
-foreach(example IN ITEMS window_exercise3)
-    add_executable(${example} "src/01_GettingStarted/${example}.cpp")
+foreach(example IN ITEMS shaders2)
+    add_executable(${example} "src/01_GettingStarted/shader/${example}.cpp")
     target_link_libraries(${example} PRIVATE glad glfw OpenGL::GL)
     # GLFW's install name is @rpath/libglfw.3.dylib.
     set_target_properties(${example} PROPERTIES
