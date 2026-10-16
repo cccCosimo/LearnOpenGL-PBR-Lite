@@ -22,14 +22,18 @@ target_include_directories(glad PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/includes")
 
 
 # Each source file has its own main(), so build separate programs.
-foreach(example IN ITEMS shaders_class)
-    add_executable(${example} "src/01_GettingStarted/shader/shaders_class/${example}.cpp")
+foreach(example IN ITEMS texture)
+    add_executable(${example}
+        "src/01_GettingStarted/texture/${example}.cpp"
+        "src/stb_image.cpp"
+    )
     target_link_libraries(${example} PRIVATE glad glfw OpenGL::GL)
     # GLFW's install name is @rpath/libglfw.3.dylib.
     set_target_properties(${example} PROPERTIES
         BUILD_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/lib"
     )
-    target_compile_definitions(shaders_class PRIVATE
-    SHADER_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/src/01_GettingStarted/shader/shaders_class\"
+    target_compile_definitions(texture PRIVATE
+    SHADER_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/src/01_GettingStarted/texture/\"
+    TEXTURE_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources/textures\"
     )
 endforeach()
