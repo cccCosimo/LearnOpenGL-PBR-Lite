@@ -21,7 +21,7 @@ target_include_directories(glad PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/includes")
 
 
 # Each source file has its own main(), so build separate programs.
-foreach(example IN ITEMS camera)
+foreach(example IN ITEMS camera_class)
     add_executable(${example}
         "src/01_GettingStarted/camera/${example}.cpp"
         "src/stb_image.cpp"
@@ -31,7 +31,7 @@ foreach(example IN ITEMS camera)
     set_target_properties(${example} PROPERTIES
         BUILD_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/lib"
     )
-    target_compile_definitions(camera PRIVATE
+    target_compile_definitions(camera_class PRIVATE
     SHADER_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/src/01_GettingStarted/camera/\"
     TEXTURE_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources/textures\"
     )
