@@ -1,0 +1,3 @@
+If we add ambients strength, every fragment, whether in front of or behind the light source, will become brighter. It is similar to the effect of increasing the exposure when taking a photo.
+For diffuse strength, it only affect the fragment which is not totally behind the light source, in other words, if we add diffuse strength, we only increasing the exposure for certain fragments, not all of them.
+Fragments which are affected by spectral strength are even less。 It only affects the intensity of the highlights we see.

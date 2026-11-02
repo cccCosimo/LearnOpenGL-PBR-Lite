@@ -1,0 +1,1 @@
+Implement Gouraud shading instead of Phong shading, the cube become less realistic than before, hightlight spot only appear at each vertex and the sphere near it, this is because we actually only implement specular lighting on each vertex of the cube, other fragment gets the color values of the surrounding fragments which are the result of interpolated lighting colors.

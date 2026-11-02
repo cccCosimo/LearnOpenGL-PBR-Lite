@@ -26,7 +26,7 @@ float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(3.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), -125.0);
 bool firstMouse = true;
 float lastX =  SCR_WIDTH / 2.0;    // get last frame cursor position
 float lastY =  SCR_HEIGHT / 2.0;
@@ -76,8 +76,12 @@ int main()
 
     // build and compile our shader program
     // ------------------------------------
-    std::string vertexPath = std::string(SHADER_DIR) + "/object.vs";
-    std::string fragmentPath = std::string(SHADER_DIR) + "/object.fs";
+    // std::string vertexPath = std::string(SHADER_DIR) + "/object.vs";
+    // std::string fragmentPath = std::string(SHADER_DIR) + "/object.fs";
+
+    std::string vertexPath = std::string(SHADER_DIR) + "/exercises/exercise3.vs";
+    std::string fragmentPath = std::string(SHADER_DIR) + "/exercises/exercise3.fs";
+
     Shader objectShader(vertexPath.c_str(), fragmentPath.c_str());
     vertexPath = std::string(SHADER_DIR) + "/light.vs";
     fragmentPath = std::string(SHADER_DIR) + "/light.fs";
@@ -174,8 +178,9 @@ int main()
 
     // set up lighting source and object attributes(color, position)
     glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, -2.0f);
-
-
+    glm::vec3 objectColor = glm::vec3(1.0f, 0.5f, 0.31f);
+    glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+    
 
     // render loop
     // -----------
@@ -186,6 +191,9 @@ int main()
         float currentTime = static_cast<float>(glfwGetTime());
         deltaTime = currentTime - lastFrame;
         lastFrame = currentTime;
+        // Adjust the position of the light source based on the time
+        lightPos = glm::vec3(sin((float)glfwGetTime()), cos((float)glfwGetTime()), 0.0f);
+
         // input
         // -----
         processInput(window);
@@ -197,8 +205,8 @@ int main()
 
         // active cude shader and bind VAO
         objectShader.use();
-        objectShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        objectShader.setVec3("lightColor",  1.0f, 1.0f, 1.0f);
+        objectShader.setVec3("objectColor", objectColor);
+        objectShader.setVec3("lightColor",  lightColor);
         objectShader.setVec3("lightPos", lightPos);
         objectShader.setVec3("viewPos", camera.Position);
         // pass projection matrix to shader
@@ -216,8 +224,6 @@ int main()
             glm::mat4 model = glm::mat4(1.0f);
 
             model = glm::translate(model, cubePositions[i]);
-            float angle = 20.0f * i + 10; 
-            model = glm::rotate(model, glm::radians(angle) * (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
             objectShader.setMat4("model", model);
 
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
@@ -226,6 +232,7 @@ int main()
         lightShader.use();
         glBindVertexArray(lightVAO);
         glm::mat4 model = glm::mat4(1.0f);
+        // model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f));
         lightShader.setMat4("model", model);
