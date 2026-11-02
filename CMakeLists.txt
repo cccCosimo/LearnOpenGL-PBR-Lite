@@ -21,9 +21,9 @@ target_include_directories(glad PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/includes")
 
 
 # Each source file has its own main(), so build separate programs.
-foreach(example IN ITEMS basic_lighting)
+foreach(example IN ITEMS material)
     add_executable(${example}
-        "src/02_Lighting/basic_lighting/${example}.cpp"
+        "src/02_Lighting/material/${example}.cpp"
         "src/stb_image.cpp"
     )
     target_link_libraries(${example} PRIVATE glad glfw OpenGL::GL)
@@ -32,7 +32,7 @@ foreach(example IN ITEMS basic_lighting)
         BUILD_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/lib"
     )
     target_compile_definitions(${example} PRIVATE
-    SHADER_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/src/02_Lighting/basic_lighting\"
+    SHADER_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/src/02_Lighting/material\"
     TEXTURE_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources/textures\"
     )
 endforeach()
