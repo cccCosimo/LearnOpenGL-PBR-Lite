@@ -296,8 +296,12 @@ int main()
         objectShader.setVec3("spotLight.diffuse", glm::vec3(1.0f) * lightColor);
         objectShader.setVec3("spotLight.specular", glm::vec3(1.0f) * lightColor);
 
+        objectShader.setFloat("spotLight.constant", 1.0f);
+        objectShader.setFloat("spotLight.linear", 0.09f);
+        objectShader.setFloat("spotLight.quadratic", 0.032f);
+
         objectShader.setFloat("spotLight.innerCutOff", glm::cos(glm::radians(8.0f)));
-        objectShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(13.0f)));
+        objectShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
         
         // pass projection matrix to shader
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
